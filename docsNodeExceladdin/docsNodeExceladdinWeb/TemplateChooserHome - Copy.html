@@ -1,0 +1,230 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <title>Excel Add-In with Commands Sample</title>
+    <link href="Styles/TemplateChooserHome.css" rel="stylesheet" type="text/css" />
+    <script src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js" type="text/javascript"></script>
+    <link href="Styles/bootstrap.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.css" rel="stylesheet" />
+    <link href="Styles/DocsNodeChooserStyle.css" rel="stylesheet" />
+    <link href="Styles/style.css" rel="stylesheet" /> <!--Treeview css-->
+    <!-- For the Office UI Fabric, go to https://aka.ms/office-ui-fabric to learn more. -->
+    <link rel="stylesheet" href="https://appsforoffice.microsoft.com/fabric/2.1.0/fabric.min.css">
+    <link rel="stylesheet" href="https://appsforoffice.microsoft.com/fabric/2.1.0/fabric.components.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://static2.sharepointonline.com/files/fabric/office-ui-fabric-core/9.6.1/css/fabric.min.css">
+    <link rel="stylesheet" href="https://mwf-service.akamaized.net/mwf/css/bundle/1.55.0/west-european/default/mwf-main.min.css">
+    <link rel="stylesheet" href="https://cdn.graph.office.net/prod/css/msgraph-portal20181212.css">
+    <script src="https://static2.sharepointonline.com/files/fabric/office-ui-fabric-js/1.4.0/js/fabric.min.js"></script>
+</head>
+<body>
+    <div class="col-md-4">
+        <div class="row">
+            <div class="share-tab" id="mainContent">
+                <!--<div class="mainLOGO">
+                </div>-->
+                <div id="WaitDialog" class="hidden" style="text-align: center">
+                    <div class="waitDialogOverlay"></div>
+                    <img src="/images/fabricSpinner.gif" style="height: 30px;" />
+                </div>
+                <div id="myTabContent1" class="tab-content">
+                    <div class="tab-pane active in" id="c-shareddrive">
+                        <div class="sharedrive-sec">
+                            <div class="top-btnsearch-part">
+                                <div class="input-group search-bar">
+                                    <input id="txtTemplateSearch" type="text" class="form-control" aria-label="..." placeholder="Search Templates">
+                                    <span class="input-group-btn">
+                                        <button class="txtfldrefbtn" type="button" id="refreshList" title="Refresh">
+                                            <img src="https://d30y9cdsu7xlg0.cloudfront.net/png/4985-200.png" />
+                                        </button>
+                                    </span>
+                                </div>
+                                <div class="ms-OverflowSet-item">
+                                    <div class="Viewbtn" id="ViewButton">
+                                        <button id="viewbtndropdown" type="button" role="menuitem" name="All Documents" title="Open the view options menu" class="ms-Button ms-Button--commandBar ms-CommandBarItem-link" data-is-focusable="true" aria-label="View options. List view and All Documents selected ." aria-expanded="false" aria-haspopup="true">
+                                            <i data-icon-name="List" class="ms-Icon root-49" role="presentation"></i>
+                                        </button>
+                                        <ul class="filterableClass-view" id="ViewUL"></ul>
+                                    </div>
+                                    <div class="fltbtn" id="filterButton">
+                                        <button class="filterBtn" type="button" id="btndropdown" title="Filter">
+                                            <i data-icon-name="List" class="ms-Icon ms-Icon--Filter" role="presentation" aria-hidden="true"></i>
+                                        </button>
+                                        <ul class="filterableClass-filter" id="filterUL"></ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="list-item-sec">
+                                <div class="doc-tempbox">
+                                    <div id="boxscroll">
+                                        <ul id="listOfTemplate" class="list-group mb0" style="display:none"></ul>
+                                        <ul id="DocTemplatesBoxView" class="boxOfTemplate"></ul>
+                                        <label class="alert" id="noDataFoundLbl" style="display:none">Search Template is not available!</label>
+                                    </div>
+                                </div>
+                                <div>
+                                    <button class="custmbtn_preview" type="button" id="previewbtn">
+                                        <i class="ms-Icon ms-Icon--Preview" title="Preview" aria-hidden="true"></i>
+                                        Preview
+                                    </button>
+                                    <button class="custmbtn_preview" type="button" id="nextbtn">
+                                        Next
+                                        <i class="ms-Icon ms-Icon--PageRight" title="PageRight" aria-hidden="true"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="sharedrive-sec" id="preview_step">
+                    <div class="closebutton" id="closebutton"></div>
+                    <div class="customModalClass">
+                        <div class="previewpopup">
+                            <div style="text-align:center">
+                                <img src="" id="preview-frame" />
+                            </div>
+                            <ul id="previewInfo" class="previewlist"></ul>
+                            <button class="custmbtn_preview2" type="button" id="nextbtn2">
+                                Next
+                                <i class="ms-Icon ms-Icon--PageRight" title="PageRight" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="lib-section" style="display:none">
+                    <!-- Start Treeview Design-->
+                    <div class="side_body_sec">
+                        <div class="side_body_shadow">
+                            <div class="sec_pin_location sec_location">
+                                <div class="title_tab">
+                                    <h3 class="title_h3">Pinned Locations</h3>
+                                    <div class="SPPinnedMore">
+                                        <div class="pinshowmore" title="Show more">
+                                            <i class="ms-Icon ms-Icon--ChevronDown" aria-hidden="true"></i>
+                                        </div>
+                                        <div class="pinshowless" style="display:none" title="Show less">
+                                            <i class="ms-Icon ms-Icon--ChevronUp" aria-hidden="true"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="SPPinned">
+                                </div>
+                                <div id="SPPinnedAll">
+                                </div>
+                            </div>
+                            <div class="sec_sp_location sec_location">
+                                <div class="title_tab">
+                                    <h3 class="title_h3">All Locations</h3>
+                                    <div class="SPTreeViewMore">
+                                        <div class="treeshowmore" title="Show more">
+                                            <i class="ms-Icon ms-Icon--ChevronDown" aria-hidden="true"></i>
+                                        </div>
+                                        <div class="treeshowless" style="display:none" title="Show less">
+                                            <i class="ms-Icon ms-Icon--ChevronUp" aria-hidden="true"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="categoriesTree" id="SPFavTreeView">
+                                </div>
+                                <div class="categoriesTree" id="SPAllTreeView">
+                                    <div class="categoriesTree" id="SPTreeView">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End Treeview Design-->
+                        <div>
+                            <div class="chkfooter">
+                                <input type="checkbox" id="pinnedcheckbox" name="pincheckbox" value="chkFav" checked /><span> Mark this location as pin location.</span>
+                            </div>
+                            <button class="custmbtn_preview" type="button" id="previous">
+                                <i class="ms-Icon ms-Icon--PageLeft" title="PageLeft" aria-hidden="true"></i>
+                                Previous
+                            </button>
+                            <button class="custmbtn_preview" type="button" id="createFile">
+                                <i class="ms-Icon ms-Icon--FileTemplate" title="FileTemplate" aria-hidden="true"></i>
+                                Create
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="sharedrivesec" id="third_step">
+                    <h4>Create The Document</h4>
+                    <p class="alert-msg">File Already Exist!!</p>
+                    <p class="permissionalert-msg">Access denied. You do not have permission to perform this action or access this resource.</p>
+                    <div class="ms_Dialog_subText">
+                        <div class='Contentss'></div>
+                        <div><p class='Contentss'><b>Enter the new File name without Extension</b></p></div>
+                        <p id="alertMessage">Please Enter Valid Document Name.</p>
+                    </div>
+                    <input type="text" id='txtNewFileName' class="newfiletxt" maxLength="100" />
+                    <div id="page" class="modalDialogText"></div>
+                    <div class="ms_Dialog_actions">
+                        <button class="btnDialog" type="button" id='popupsave'>
+                            Save
+                        </button>
+                        <button class="btnDialog" type="button" id="popupnext">
+                            Next
+                        </button>
+                        <button class="btnDialog" type="button" id='btnCancel'>
+                            Cancel
+                        </button>
+                    </div>
+                    <div id="PinnedLocationMsg">
+                    </div>
+                    <div id="DocumentUrls" class="savedDocuments">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="Scripts/jquery-1.9.1.js" type="text/javascript"></script>
+    <script src="Scripts/FabricUI/MessageBanner.js" type="text/javascript"></script>
+   <!-- <script src="Scripts/Custom/DocsNodeTemplateDesigner.js" type="text/javascript"></script>-->
+    <script src="Scripts/Custom/DocsnodeJs.js" type="text/javascript"></script>
+    <script src="Scripts/bootstrap.js"></script>
+    <script src="https://secure.aadcdn.microsoftonline-p.com/lib/0.2.4/js/msal.js"></script>
+    <script src="Scripts/jquery.nicescroll.min.js"></script>
+    <script src="//secure.aadcdn.microsoftonline-p.com/lib/1.0.13/js/adal.min.js"></script>
+    <script type="text/javascript">
+        var sharePointTenantName;
+        (function (window, $) {
+            // Azure AD App Manifest - Set 'oauth2AllowImplicitFlow' property to 'true' ("oauth2AllowImplicitFlow": true)
+            // https://docs.microsoft.com/en-us/azure/active-directory/develop/active-directory-application-manifest
+            window.accessToken = null;
+            sharePointTenantName = localStorage.Sharepoint;
+            var appRedirectURL = localStorage.getItem('Auth0ClientUrl') + "TemplateChooserHome.html"
+            var config = window.config = {
+                clientId: localStorage.getItem('Auth0ClientID'),
+                redirectUri: appRedirectURL,
+                postLogoutRedirectUri: window.location.origin,
+                endpoints: {
+                    graphApiUrl: 'https://graph.microsoft.com',
+                    sharePointUrl: 'https://' + sharePointTenantName + '.sharepoint.com'
+                },
+                cacheLocation: 'sessionStorage'
+            };
+            var authContext = new AuthenticationContext(config);
+            $.getAuthContext = authContext;
+            var $userDisplay = $(".app-user");
+            var isCallback = authContext.isCallback(window.location.hash);
+            authContext.handleWindowCallback();
+            var user = authContext.getCachedUser();
+            if (!user) {
+                authContext.login();
+            } else {
+                localStorage.setItem('userDisplayName', user.profile.name);
+                var toggler = document.getElementsByClassName("caretCustom");
+                for (var i = 0; i < toggler.length; i++) {
+                    toggler[i].addEventListener("click", function () {
+                        this.parentElement.querySelector(".active").classList.toggle("nested");
+                        this.classList.toggle("caret-down");
+                    });
+                }
+            }
+        })(window, window.jQuery);
+    </script>
+</body>
+</html>

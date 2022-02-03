@@ -1,0 +1,254 @@
+﻿.width {
+    max-width: 400px;
+}
+
+body {
+    background-color: #ddd;
+    margin: 0;
+    font-family: "Segoe UI", "Segoe UI Web (West European)", "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+/****REQUIRE CSS START HERE*****/
+.RightMoreBtn {
+    float: right;
+    padding-right: 10px;
+    padding-top: 6px;
+}
+
+    .RightMoreBtn button {
+        background: transparent;
+        border: 0;
+        font-size: 18px;
+        cursor: pointer;
+        padding: 0;
+    }
+
+.TemSideIcon {
+    float: left;
+    padding-left: 15px;
+}
+
+    .TemSideIcon img {
+        width: 30px;
+    }
+
+.SidebarHeader {
+    /*padding: 10px 0;*/
+    display: inline-block;
+    width: 100%;
+    /*border-bottom: 1px solid #d0cdcd;*/
+}
+
+.active {
+    display: block;
+}
+
+.hide {
+    display: none;
+}
+
+.activelink {
+    color: red;
+}
+
+.ManageTabsMain ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.tabList li {
+    width: 25%;
+    float: left;
+}
+
+    .tabList li i, .tabList li span {
+        display: block;
+    }
+
+    .tabList li span {
+        font-size: 11px;
+        margin-top: 8px;
+    }
+
+    .tabList li i {
+        font-size: 20px;
+    }
+
+    .tabList li a {
+        color: #333;
+        text-decoration: none;
+        text-align: center;
+        border: 1px solid transparent;
+        display: block;
+        padding: 10px 4px;
+    }
+
+        .tabList li a.activelink {
+            border-color: #1CACEB;
+        }
+
+.ManageTabsMain {
+    padding: 15px;
+}
+
+.tabsearch input {
+    width: 100%;
+    height: 30px;
+    display: inline-block;
+    border: 1px solid #ddd;
+    padding: 0 30px;
+}
+
+    .tabsearch input:focus {
+        outline: 0;
+    }
+
+.tabsearch {
+    position: relative;
+}
+
+.tabSearchBox {
+    display: inline-block;
+    width: 100%;
+}
+
+.SideSearchicon {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.SideClose {
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.tabsearch i {
+    padding: 9px;
+    font-size: 14px;
+}
+
+/*#ManageTabsContent {
+    display: inline-block;
+    width: 100%;
+    margin-top: 15px;
+}*/
+
+.SideContentBox {
+    border: 1px solid #ddd;
+    border-top: 0;
+    /*padding: 20px;*/
+    overflow: auto;
+}
+
+    .SideContentBox li a:hover {
+        background-color: #f2f2f2;
+    }
+
+.file-icon {
+    float: left;
+    margin-right: 15px;
+    font-size: 18px;
+}
+
+.fileName {
+    float: left;
+    font-size: 14px;
+}
+
+.fileEnter-icon {
+    float: right;
+}
+
+.SideContentBox li {
+    display: inline-block;
+    width: 100%;
+    /*margin: 10px 0;*/
+}
+
+    .SideContentBox li a {
+        color: #333;
+        display: inline-block;
+        width: 100%;
+        text-decoration: none;
+        padding: 10px 15px;
+    }
+
+.backButton button {
+    background: transparent;
+    border: 0;
+    vertical-align: middle;
+    cursor: pointer;
+    margin-top: 15px;
+    font-size: 14px;
+}
+
+.backButton i {
+    margin-right: 10px;
+    font-size: 12px;
+}
+
+.SubDocs li h3 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: normal;
+}
+
+.SubDocs li p {
+    margin: 0;
+    font-size: 14px;
+}
+
+.SubScontent {
+    display: inline-block;
+    width: calc(100% - 60px);
+    margin-left: 10px;
+    vertical-align: middle;
+}
+
+.SubSicon {
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 24px;
+}
+
+.ManageTabsMain ul.SubDocs {
+    margin-top: 15px;
+    height: 500px;
+    overflow: auto;
+}
+
+.SubDocs i {
+    color: #62d7cf;
+}
+
+li.liIteamImg {
+    width: 50%;
+    float: left;
+}
+
+    li.liIteamImg img {
+        width: 100%;
+    }
+
+.liInnerImage {
+    width: 100%;
+    height: 100px;
+    position: relative;
+    overflow: hidden;
+}
+
+    .liInnerImage img {
+        width: 100%;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
+/****REQUIRE CSS END HERE*****/
